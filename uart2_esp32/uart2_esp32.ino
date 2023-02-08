@@ -17,7 +17,8 @@ WiFiUDP ntpUDP;
  
 NTPClient timeClient(ntpUDP, "asia.pool.ntp.org", 19800, 60000);
  
-char Time[ ] = "TIME:00:00:00";
+//char Time[ ] = "TIME:00:00:00";
+char Time[ ] = "TIME:00:00";
 char Date[ ] = "DATE:00/00/2000";
 byte last_second, second_, minute_, hour_, day_, month_;
 byte prevMin = 0;
@@ -85,8 +86,8 @@ void loop() {
     month_  = month(unix_epoch);
     year_   = year(unix_epoch);
     
-    Time[12] = second_ % 10 + 48;
-    Time[11] = second_ / 10 + 48;
+//    Time[12] = second_ % 10 + 48;
+//    Time[11] = second_ / 10 + 48;
     Time[9]  = minute_ % 10 + 48;
     Time[8]  = minute_ / 10 + 48;
     Time[6]  = hour_   % 10 + 48;
@@ -98,6 +99,7 @@ void loop() {
     Date[9]  = month_  % 10 + 48;
     Date[13] = (year_   / 10) % 10 + 48;
     Date[14] = year_   % 10 % 10 + 48;
+    last_second = second_;
   }
   if(minute_ != prevMin){
   prevMin = minute_ ;

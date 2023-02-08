@@ -17,6 +17,7 @@ void setup() {
 void loop() {
   // Check if there is data available on UART2
   if (UART2.available() > 0) {
+    
     // Read the data from UART2
     String data = UART2.readStringUntil('\n');
 
