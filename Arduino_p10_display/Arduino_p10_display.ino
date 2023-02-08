@@ -8,9 +8,12 @@ const int WIDTH = 1;
 
 const uint8_t *FONT = Arial14;
 //const uint8_t *FONT = SystemFont5x7;
+
 //String msg = "hello Ganesh" ;
 //char *MESSAGE = "Welcome to Robotics Lab";
+//char *next = "";
 
+String message ="Soham" ;
 SoftDMD dmd(WIDTH,1);  // DMD controls the entire display
 DMD_TextBox box(dmd);  // "box" provides a text box to automatically write to/scroll the display
 
@@ -23,17 +26,17 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-  String message = Serial.readString();
-  Serial.println("Received message: " + message);
+   message = Serial.readString();
+   Serial.println("Received message: " + message);
   //MESSAGE = message .c_str();
   //const char *next = MESSAGE;
-  char *next = message.c_str();
-  while(*next) {
+   }
+    char *next = message.c_str();
+    while(*next) {
     Serial.print(*next);
     box.print(*next);
     delay(200);
     next++;
-   }
-   delay(500);
+   delay(100);
   }
 }
