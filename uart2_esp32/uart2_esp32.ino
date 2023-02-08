@@ -11,9 +11,7 @@ String data ="";
 HardwareSerial UART2(2);
 WebServer server(80);
 
- 
-WiFiUDP ntpUDP;
- 
+WiFiUDP ntpUDP; 
  
 NTPClient timeClient(ntpUDP, "asia.pool.ntp.org", 19800, 60000);
  
@@ -24,6 +22,7 @@ byte last_second, second_, minute_, hour_, day_, month_;
 byte prevMin = 0;
 int year_;
 
+String prevData = "";
 
 void setup() {
   // Start the UART2 communication with 9600 baud rate
@@ -99,12 +98,15 @@ void loop() {
     Date[9]  = month_  % 10 + 48;
     Date[13] = (year_   / 10) % 10 + 48;
     Date[14] = year_   % 10 % 10 + 48;
-    last_second = second_;
   }
-  if(minute_ != prevMin){
+  
+  if((minute_ != prevMin) || (prevData != data )){
   prevMin = minute_ ;
+  prevData = data ;
   UART2.println(String(Time)+"\n"+String(Date)+"\n"+data);
   delay(100);
   }
+  
+  
   server.handleClient();
 }
